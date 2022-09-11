@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DIALTEMPLATE>
+    <TEMPLATE MATCH="1..........." Timeout="1"/> <!-- US number with country prefix -->
+    <TEMPLATE MATCH=".........." Timeout="1"/>   <!-- US number with area code -->
+    <TEMPLATE MATCH="......." Timeout="1"/>      <!-- US number without area code -->
+
+    <!-- PBX extensions 3, 4, 5 digits -->
+    <TEMPLATE MATCH="..." Timeout="3"/>
+    <TEMPLATE MATCH="...." Timeout="3"/>
+    <TEMPLATE MATCH="....." Timeout="3"/>
+
+    <TEMPLATE MATCH="*" Timeout="5"/>
+</DIALTEMPLATE>

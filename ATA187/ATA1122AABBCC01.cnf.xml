@@ -1,0 +1,120 @@
+<!-- 
+    Cisco ATA 187 Line 2 config file
+    ================================
+
+    Strings to replace:
+
+    ${{EXTENSION_NUMBER}} - this line's extension number on your PBX
+
+    ${{SIP_ADDRESS}} - IP/FQDN of your PBX
+    ${{SIP_PORT}} - what port your PBX's SIP endpoint is on
+    ${{SIP_DISPLAYNAME}} - doesn't seem to have any real impact on anything? can be whatever you want
+    ${{SIP_AUTHNAME}} - SIP authentication username
+    ${{SIP_AUTHPASSWORD}} - SIP authentication password
+-->
+
+<?xml version="1.0"?>
+<device>
+    <deviceProtocol>SIP</deviceProtocol>
+    <devicePool>
+        <callManagerGroup>
+            <name>Default</name>
+            <tftpDefault>true</tftpDefault>
+            <members>
+                <member>
+                    <callManager>
+                        <name>${{SIP_ADDRESS}}</name>
+                        <description>PBX</description>
+                        <ports>
+                            <sipPort>${{SIP_PORT}}</sipPort>
+                        </ports>
+                        <processNodeName>${{SIP_ADDRESS}}</processNodeName>
+                    </callManager>
+                </member>
+            </members>
+        </callManagerGroup>
+        <srstInfo>
+            <userModifiable>false</userModifiable>
+            <isSecure>false</isSecure>
+        </srstInfo>
+    </devicePool>
+
+    <sipProfile>
+        <phoneLabel>${{SIP_DISPLAYNAME}}</phoneLabel>
+
+        <sipCallFeatures>
+            <cnfJoinEnabled>true</cnfJoinEnabled>
+            <callForwardURI>x-cisco-serviceuri-cfwdall</callForwardURI>
+            <callPickupURI>x-cisco-serviceuri-pickup</callPickupURI>
+            <callPickupListURI>x-cisco-serviceuri-opickup</callPickupListURI>
+            <callPickupGroupURI>x-cisco-serviceuri-gpickup</callPickupGroupURI>
+            <meetMeServiceURI>x-cisco-serviceuri-meetme</meetMeServiceURI>
+            <abbreviatedDialURI>x-cisco-serviceuri-abbrdial</abbreviatedDialURI>
+            <rfc2543Hold>false</rfc2543Hold>
+            <callHoldRingback>2</callHoldRingback>
+            <localCfwdEnable>true</localCfwdEnable>
+            <semiAttendedTransfer>true</semiAttendedTransfer>
+            <anonymousCallBlock>2</anonymousCallBlock>
+            <callerIdBlocking>2</callerIdBlocking>
+            <dndControl>0</dndControl>
+            <remoteCcEnable>true</remoteCcEnable>
+        </sipCallFeatures>
+
+        <sipStack>
+            <sipInviteRetx>6</sipInviteRetx>
+            <sipRetx>10</sipRetx>
+            <timerInviteExpires>180</timerInviteExpires>
+            <timerRegisterExpires>3600</timerRegisterExpires>
+            <timerRegisterDelta>5</timerRegisterDelta>
+            <timerKeepAliveExpires>120</timerKeepAliveExpires>
+            <timerSubscribeExpires>120</timerSubscribeExpires>
+            <timerSubscribeDelta>5</timerSubscribeDelta>
+            <timerT1>500</timerT1>
+            <timerT2>4000</timerT2>
+            <maxRedirects>70</maxRedirects>
+            <remotePartyID>false</remotePartyID>
+            <userInfo>None</userInfo>
+        </sipStack>
+
+        <codec>g711a</codec> <!-- g711u or g711a are lossless, which is mandatory for fax machines and modems -->
+        <dtmfAvtPayload>101</dtmfAvtPayload>
+        <dtmfDbLevel>3</dtmfDbLevel>
+        <dtmfOutofBand>avt</dtmfOutofBand>
+        <alwaysUsePrimeLine>false</alwaysUsePrimeLine>
+        <alwaysUsePrimeLineVoiceMail>false</alwaysUsePrimeLineVoiceMail>
+        <kpml>3</kpml>
+        <sipLines>
+            <line>
+                <featureLabel>${{EXTENSION_NUMBER}}</featureLabel>
+                <port>${{SIP_PORT}}</port>
+                <proxy>${{SIP_ADDRESS}}</proxy>
+                <name>${{EXTENSION_NUMBER}}</name>
+                <displayName>${{SIP_DISPLAYNAME}}</displayName>
+                <autoAnswer>
+                    <autoAnswerEnabled>2</autoAnswerEnabled>
+                </autoAnswer>
+                <callWaiting>2</callWaiting> <!-- 0, 2 = disabled. 1, 3 = enabled. -->
+                <authName>${{SIP_AUTHNAME}}</authName>
+                <authPassword>${{SIP_AUTHPASSWORD}}</authPassword>
+                <sharedLine>false</sharedLine>
+                <contact>${{EXTENSION_NUMBER}}</contact>
+                <forwardCallInfoDisplay>
+                    <callerName>true</callerName>
+                    <callerNumber>false</callerNumber>
+                    <redirectedNumber>false</redirectedNumber>
+                    <dialedNumber>true</dialedNumber>
+                </forwardCallInfoDisplay>
+            </line>
+        </sipLines>
+        <dialTemplate>dialplan.xml</dialTemplate>
+    </sipProfile>
+    <userLocale>
+        <name>English_United_States</name>
+        <langCode>en_US</langCode>
+        <winCharSet>iso-8859-1</winCharSet>
+    </userLocale>
+    <networkLocale>United_States</networkLocale>
+    <networkLocaleInfo>
+        <name>United_States</name>
+    </networkLocaleInfo>
+</device>
