@@ -117,4 +117,17 @@
     <networkLocaleInfo>
         <name>United_States</name>
     </networkLocaleInfo>
+    <vendorConfig>
+        <!-- not sure if any of these options even work on ATAs in the first place but it can't hurt to explicitly set them -->
+        <settingsAccess>1</settingsAccess> <!-- allowing user to change the settings -->
+        <webAccess>0</webAccess> <!-- 0 = enabled, 1 = disabled -->
+        <webProtocol>0</webProtocol> <!-- 0 = HTTP + HTTPS, 1 = HTTPS only -->
+        <webAdmin>1</webAdmin> <!-- supposed to enable administration through the web interface -->
+        
+        <!-- probably helpful if you have call recording enabled for debugging modems like I do -->
+        <recordingTone>0</recordingTone>
+        <recordingToneLocalVolume>0</recordingToneLocalVolume>
+        <recordingToneRemoteVolume>0</recordingToneRemoteVolume>
+        
+    </vendorConfig>
 </device>
